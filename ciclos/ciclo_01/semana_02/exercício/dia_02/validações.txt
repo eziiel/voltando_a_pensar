@@ -1,0 +1,223 @@
+package main
+
+import "fmt"
+
+type PessoaFila struct {
+	nome			string
+	distancia	int
+}
+
+func main() {
+	conexoes := map[string][]string{
+    "Ana":      {"Bruno", "Carlos"},
+    "Bruno":    {"Ana", "Daniel", "Eduardo"},
+    "Carlos":   {"Ana", "Fernanda"},
+    "Daniel":   {"Bruno"},
+    "Eduardo":  {"Bruno"},
+    "Fernanda": {"Carlos"},
+	}
+
+	// fila := []PessoaFila{
+	// 	{"Ana", 0},
+	// }
+
+	fila := []string{"Ana"}
+	pontoFinal := "Fernanda"
+	distancia := 0
+
+	for len(fila) > 0 {
+			pessoa := fila[0]
+
+			if pessoa == pontoFinal {
+				fmt.Printf("Você está a %d passos de distância", pessoa)
+				break
+			}
+			
+				// fila = append(fila, PessoaFila{
+				// 	nome: pessoa.nome,
+				// 	distancia: pessoa.distancia,
+				// })
+				distancia++
+				fila = fila[1:]
+				fmt.Println("1", pessoa)
+			}
+
+			fmt.Println(fila, pontoFinal, conexoes)
+	}
+
+  -----------------
+
+  package main
+
+import "fmt"
+
+type PessoaFila struct {
+	nome			string
+	distancia	int
+}
+
+func main() {
+	conexoes := map[string][]string{
+    "Ana":      {"Bruno", "Carlos"},
+    "Bruno":    {"Ana", "Daniel", "Eduardo"},
+    "Carlos":   {"Ana", "Fernanda"},
+    "Daniel":   {"Bruno"},
+    "Eduardo":  {"Bruno"},
+    "Fernanda": {"Carlos"},
+	}
+
+	fila := []PessoaFila{
+		{"Ana", 0},
+	}
+
+	pontoFinal := "Fernanda"
+	distancia := 0
+
+	for len(fila) > 0 {
+			pessoa := fila[0]
+
+			if pessoa.nome == pontoFinal {
+				fmt.Printf("%s está a %d passos de distância", pessoa.nome, pessoa.distancia)
+				break
+			}
+				fila = append(fila, PessoaFila{
+					nome: pessoa.nome,
+					distancia: pessoa.distancia,
+				})	
+				distancia++
+				fila = fila[1:]
+			}
+	}
+
+  ---------
+
+  package main
+
+func main() {
+	conexoes := map[string][]string{
+    "Ana":      {"Bruno", "Carlos"},
+    "Bruno":    {"Ana", "Daniel", "Eduardo"},
+    "Carlos":   {"Ana", "Fernanda"},
+    "Daniel":   {"Bruno"},
+    "Eduardo":  {"Bruno"},
+    "Fernanda": {"Carlos"},
+	}
+
+	fila := map[string]int{
+		"Ana": 0,
+	}
+
+	// pontoFinal:= "Fernanda"
+	// comunicados := map[string]bool{}
+
+		distance := 0
+
+		for person, dist := range fila {
+			if dist > distance {
+				distance = dist
+			}
+		}
+
+}
+
+---------------
+
+package main
+
+import "fmt"
+
+type PessoaFila struct {
+	nome			string
+	distancia	int
+}
+
+func main() {
+	conexoes := map[string][]string{
+    "Ana":      {"Bruno", "Carlos"},
+    "Bruno":    {"Ana", "Daniel", "Eduardo"},
+    "Carlos":   {"Ana", "Fernanda"},
+    "Daniel":   {"Bruno"},
+    "Eduardo":  {"Bruno"},
+    "Fernanda": {"Carlos"},
+	}
+
+	// fila := []PessoaFila{
+	// 	{"Ana", 0},
+	// }
+
+	fila := []string{"Ana"}
+	percorridos := []string{}
+	pontoFinal := "Fernanda"
+	distancia := 0
+
+	for len(fila) > 0 {
+			pessoa := fila[0]
+
+			if pessoa == pontoFinal {
+				fmt.Printf("Você está a %d passos de distância",distancia, pessoa)
+				break
+			}
+			
+				// fila = append(fila, PessoaFila{
+				// 	nome: pessoa.nome,
+				// 	distancia: pessoa.distancia,
+				// })
+
+				percorridos = append(percorridos, pessoa)
+
+				
+				distancia++
+				fila = fila[1:]
+				fila = append(fila, conexoes[pessoa]...)
+
+				fmt.Println("distancia: ", distancia, "pessoa: ", pessoa)
+			}
+
+			fmt.Println(fila, pontoFinal, conexoes)
+	}
+
+  --------------------
+
+    package main
+
+import "fmt"
+
+type PessoaFila struct {
+	nome			string
+	distancia	int
+}
+
+func main() {
+	conexoes := map[string][]string{
+    "Ana":      {"Bruno", "Carlos"},
+    "Bruno":    {"Ana", "Daniel", "Eduardo"},
+    "Carlos":   {"Ana", "Fernanda"},
+    "Daniel":   {"Bruno"},
+    "Eduardo":  {"Bruno"},
+    "Fernanda": {"Carlos"},
+	}
+
+	fila := []PessoaFila{
+		{"Ana", 0},
+	}
+
+	pontoFinal := "Daniel"
+	distancia := 0
+
+	for len(fila) > 0 {
+			pessoa := fila[0]
+			distancia++
+
+			if pessoa.nome == pontoFinal {
+				fmt.Printf("%s está a %d passos de distância", pessoa.nome, pessoa.distancia)
+				break
+			}
+			for _, pessoaConectada := range conexoes[pessoa.nome] {
+				fila = append(fila, PessoaFila{
+					nome: pessoaConectada,
+					distancia: distancia,
+				})	
+			}
+			fila = fila[1:]
+		}
+}
